@@ -111,8 +111,48 @@ export default function Payment() {
     try {
     console.log("Flutterwave Response:", response);
 
-   
+      const delivery = JSON.parse(
+        localStorage.getItem("pending-delivery") || "{}"
+      );
 
+      const cart = useProductStore.getState().cart;
+      const deliveryFee = useProductStore.getState().deliveryFee;
+      const subtotal = useProductStore.getState().getTotalPrice();
+
+      const order = {
+        id: crypto.randomUUID(),
+
+        transactionId: response.transaction_id?.toString() || "",
+
+        createdAt: new Date().toISOString(),
+
+        status: "Out for delivery",
+
+        paymentStatus: response.status || "successful",
+
+        customer: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+        },
+
+        delivery: {
+          city: delivery.city,
+          address: delivery.address,
+        },
+
+        items: cart,
+
+        subtotal,
+
+        deliveryFee,
+
+        total: grandTotal,
+      };
+
+      useProductStore.getState().addOrder(order);
+      useProductStore.getState().clearCart();
+      localStorage.removeItem("pending-delivery");
    
       navigate("/payment-receipt", {
         state: {

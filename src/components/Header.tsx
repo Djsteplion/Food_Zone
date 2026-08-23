@@ -56,6 +56,12 @@ const toggleMenu = useProductStore((state) => state.toggleMenu);
             <p className={`hover:cursor-pointer select-none ${getMealStyle(isMorning)}`} onClick={toHomepage}>Breakfast</p>
             <p className={`cursor-pointer select-none ${getMealStyle(isAfternoon)}`} onClick={toHomepage}>Lunch</p>
             <p className={`cursor-pointer select-none ${getMealStyle(isEvening)}`} onClick={toHomepage}>Dinner</p>
+            <button
+              onClick={() => navigate('/orders')}
+              className="text-xs font-semibold text-gray-500 hover:text-[#FF8A3D] transition-colors"
+            >
+              Orders
+            </button>
             <div className='outer1'>
               <img src={cartImage} alt="" />
               <div className="cartCount hover:cursor-pointer select-none" onClick={toCartPage}>{totalItems.toString()} </div>

@@ -16,7 +16,17 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
   e.preventDefault(); // Prevents the browser from reloading
 
   if (name && address && city && phoneNumber) {
-  navigate('/payment');
+    localStorage.setItem(
+      "pending-delivery",
+      JSON.stringify({
+        name,
+        phone: phoneNumber,
+        city,
+        address,
+      })
+    );
+
+    navigate("/payment");
   } else {
   alert("Fill In All Fields Before Proceeding.");
   }

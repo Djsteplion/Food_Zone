@@ -12,6 +12,8 @@ import FoodTrayMobile from './components/FoodTrayMobile';
 import BottomHero from './components/BottomHero';
 import { useAuthStore } from './utils/store';
 import PaymentReceipt from './components/PaymentReceipt';
+import Orders from './components/OrderPage';
+import OrderDetails from './components/OrderDetails';
 
 function App() {
 
@@ -32,6 +34,8 @@ function App() {
      <Route path="deliveryPage" element={<DeliveryPage/>} />
      <Route path="payment" element={<Payment/>} />
      <Route path="/payment-receipt" element={<PaymentReceipt/>} />
+     <Route path="/orders" element={<Orders/>} />
+     <Route path="/orders/:id" element={<OrderDetails/>} />
      <Route path="/appreciation" element={<Appreciation/>} />
      <Route path="/BottomHero" element={<BottomHero/>} />
      <Route path="/FoodTrayMobile" element={<FoodTrayMobile/>} />

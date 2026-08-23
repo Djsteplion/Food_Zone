@@ -35,13 +35,41 @@ export interface Product {
     count: number; // This acts as the quantity
 }
 
+export interface Order {
+  id: string;
+  transactionId: string;
+  createdAt: string;
+  status: "Confirmed" | "Preparing" | "Out for delivery" | "Delivered";
+  paymentStatus: string;
+
+  customer: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+
+  delivery: {
+    city: string;
+    address: string;
+  };
+
+  items: Product[];
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+}
+
 export interface ProductStore {
     products: Product[];
     cart: Product[];
+    orders: Order[]; // ← here
     deliveryFee: number;
+    
 
     // Actions
     addToCart: (product: Product) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    addOrder: (order: any) => void; // ← here
     removeFromCart: (id: string) => void;
     increaseQuantity: (id: string) => void;
     decreaseQuantity: (id: string) => void;
@@ -151,6 +179,17 @@ export const useProductStore = create<ProductStore>()(
                 getTotalItems: () => {
                     return get().cart.reduce((acc, item) => acc + item.count, 0);
                 },
+
+                orders: [],
+
+                addOrder: (order) =>
+                set(
+                    (state) => ({
+                    orders: [order, ...state.orders],
+                    }),
+                    false,
+                    "addOrder"
+                ),
 
                 clearCart: () => set({ cart: [] }, false, 'clearCart'),
 
