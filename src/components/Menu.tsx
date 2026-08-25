@@ -105,7 +105,7 @@ const { products, addToCart } = useProductStore();
   return (
     <div className='w-full flex justify-center flex-col items-center lg:flex-row'>
       <div  className='hidden lg:w-full lg:max-h-screen lg:flex lg:flex-col lg:items-center lg:justify-center'>
-        <div className='flex justify-center items-center mr-auto ml-auto mt-[100px] h-[280px] w-[310px] lg:w-[500px] lg:h-[370px] lg:mt-[0px]'> 
+        <div className='flex justify-center items-center mr-auto ml-auto mt-[100px] h-[280px] w-[310px] lg:w-[400px] lg:h-[370px] lg:mt-[30px]'> 
             <img src={products[activeIndex]?.imageSrc2 || ""} alt={products[activeIndex]?.title || "No item selected"} className='w-full h-full'/>
         </div>
         <div className='h-[40px] w-[112.5px] -mt-[20px] hover:cursor-pointer lg:h-[80px] lg:w-[225.5px]'>
@@ -165,7 +165,7 @@ const { products, addToCart } = useProductStore();
                               <img src={product.imageSrc || ""} alt={product.title || "No item selected"} className='w-full h-full'/>
                           </div>
                           <div className='h-[40px] w-[112.5px] -mt-[20px] hover:cursor-pointer lg:h-[80px] lg:w-[225.5px]'>
-                              <Link to ={user? 'cart' : 'cart'}>
+                              <Link to ={user? 'cart' : 'auth'}>
                                 <img src={orderBtn} alt="order button" className='w-full' onClick={() => addToCart(product) }/>
                                 {/* <img src={orderBtn} alt="order button" className='w-full' onClick={() => user? addToCart(product): " "}/> */}
                               </Link>

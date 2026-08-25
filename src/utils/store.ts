@@ -5,11 +5,11 @@ import food1 from '../images/food 1.png';
 import food2 from '../images/food 2.png';
 import food3 from '../images/food 3.png';
 import food4 from '../images/food 4.png';
-import food1b from '../images/food1b.png'; 
+//import food1b from '../images/food1b.png'; 
 //import food1b from '../images/food1b.jpg';
-import food2b from '../images/food2b.png';
-import food3b from '../images/food3b.png';
-import food4b from '../images/food4b.png';
+//import food2b from '../images/food2b.png';
+//import food3b from '../images/food3b.png';
+//import food4b from '../images/food4b.png';
 
 interface AuthState {
   user: User | null;
@@ -125,10 +125,10 @@ export const useProductStore = create<ProductStore>()(
         persist(
             (set, get) => ({
                 products: [
-                    { id: '1', title: "CAVIAR EXPRESS", count: 1, description: "The best caviar in the world", price: 20, imageSrc: food1, imageSrc2: food1b },
-                    { id: '2', title: "BLUE BERRY", count: 1, description: "Fresh blueberries from farms", price: 20, imageSrc: food2, imageSrc2: food2b },
-                    { id: '3', title: "BEEF STEAK", count: 1, description: "Premium beef steaks", price: 20, imageSrc: food3, imageSrc2: food3b },
-                    { id: '4', title: "STRAWBERRY FINX", count: 1, description: "Organic strawberries", price: 20, imageSrc: food4, imageSrc2: food4b }
+                    { id: '1', title: "CAVIAR EXPRESS", count: 1, description: "The best caviar in the world", price: 20, imageSrc: food1, imageSrc2: food1 },
+                    { id: '2', title: "BLUE BERRY", count: 1, description: "Fresh blueberries from farms", price: 20, imageSrc: food2, imageSrc2: food2 },
+                    { id: '3', title: "BEEF STEAK", count: 1, description: "Premium beef steaks", price: 20, imageSrc: food3, imageSrc2: food3 },
+                    { id: '4', title: "STRAWBERRY FINX", count: 1, description: "Organic strawberries", price: 20, imageSrc: food4, imageSrc2: food4 }
                 ],
                 cart: [],
                 deliveryFee: 10,
@@ -219,7 +219,7 @@ export const useProductStore = create<ProductStore>()(
 
                         set({ cart: [] }, false, "logout");
 
-                        localStorage.removeItem("cart-storage");
+                        //localStorage.removeItem("cart-storage");
 
                         window.location.href = "/auth";
                     } catch (error) {

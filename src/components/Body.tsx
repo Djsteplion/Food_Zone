@@ -1,13 +1,35 @@
 import Fz from "./Fz";
 import Menu from "./Menu";
+import CookieConsent from "./CookieConsent";
+import HomeLoader from "./HomeLoader";
+
+import { useEffect, useState } from "react";
 
 const Body = () => {
-  return (
-    <div className=" w-full flex flex-row items-center justify-between pl-[50px]">
-       <Fz />
-       <Menu />
-    </div>
-  )
-}
+  const [showCookie, setShowCookie] = useState(false);
 
-export default Body
+  useEffect(() => {
+    const consent = localStorage.getItem("cookie-consent");
+
+    if (!consent) {
+      const timer = setTimeout(() => {
+        setShowCookie(true);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  return (
+    <HomeLoader>
+      <div className="w-full flex flex-row items-center justify-between pl-12.5">
+        <Fz />
+        <Menu />
+      </div>
+
+      {showCookie && <CookieConsent />}
+    </HomeLoader>
+  );
+};
+
+export default Body;

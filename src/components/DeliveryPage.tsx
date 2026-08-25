@@ -59,7 +59,7 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
 
            <div>
             <input
-              type="text"
+              type="number"
               placeholder="Enter your Phone Number"
               className="w-full px-5 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-orange-400 outline-none transition-all placeholder:text-gray-400 lg:px-5 lg:py-4"
               value={phoneNumber}

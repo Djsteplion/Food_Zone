@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from "./components/Header";
 import Body from  './components/Body';
@@ -23,6 +23,16 @@ function App() {
     initializeAuth();
   }, [initializeAuth]);
 
+  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const user = useAuthStore((state) => state.user);
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  return children;
+};
+
   return (
     <>
     <Header /> 
@@ -34,8 +44,24 @@ function App() {
      <Route path="deliveryPage" element={<DeliveryPage/>} />
      <Route path="payment" element={<Payment/>} />
      <Route path="/payment-receipt" element={<PaymentReceipt/>} />
-     <Route path="/orders" element={<Orders/>} />
-     <Route path="/orders/:id" element={<OrderDetails/>} />
+     <Route
+        path="/orders"
+        element={
+          <ProtectedRoute>
+            <Orders />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/orders/:id"
+        element={
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        }
+      />
+    {/* <Route path="/orders" element={<Orders/>} />
+     <Route path="/orders/:id" element={<OrderDetails/>} /> */}
      <Route path="/appreciation" element={<Appreciation/>} />
      <Route path="/BottomHero" element={<BottomHero/>} />
      <Route path="/FoodTrayMobile" element={<FoodTrayMobile/>} />

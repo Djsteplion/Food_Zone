@@ -237,14 +237,20 @@ const Authentication = () => {
                       </button>
                     </div>
 
-                    <button
-                        type="submit" 
-                        className="w-full py-4 disabled:cursor-not-allowed bg-[#FF8A3D] text-white font-bold rounded-full shadow-lg shadow-orange-200 hover:bg-orange-600 transition-colors uppercase tracking-wider text-sm mt-4"
-                        disabled = {loading|| !email || !password || !confirmPassword  || !firstname || !lastname}
-                        onClick={handleSignUp}
-                    >
-                         {loading ? 'Please Wait' : 'Sign Up'}
-                    </button>
+
+                    {loading ? 
+                      <div className="loader w-full">
+                      </div>
+                        : 
+                        <button
+                            type="submit" 
+                            className="w-full py-4 disabled:cursor-not-allowed bg-[#FF8A3D] text-white font-bold rounded-full shadow-lg shadow-orange-200 hover:bg-orange-600 transition-colors uppercase tracking-wider text-sm mt-4"
+                            disabled = {loading|| !email || !password || !confirmPassword  || !firstname || !lastname}
+                            onClick={handleSignUp}
+                        >
+                            {loading ? 'Please Wait' : 'Sign Up'}
+                        </button>
+                      }
                     </form>
 
                     {/* Footer Link */}
@@ -294,14 +300,20 @@ const Authentication = () => {
                         />
                     </div>
 
+
+                  {loading ? 
+                     <div className="loader w-full">
+                     </div>
+                   : 
                     <button
                         type="submit" 
                         className="w-full py-4 bg-[#FF8A3D] text-white font-bold disabled:cursor-not-allowed rounded-full shadow-lg shadow-orange-200 hover:bg-orange-600 transition-colors uppercase tracking-wider text-sm mt-4"
                         disabled = {loading || !email || !password}
                         onClick={handleLogin}
                     >
-                       {loading ? 'Please Wait' : 'Sign In'}
+                       Sign In
                     </button>
+                   }
                     </form>
 
                     {/* Footer Link */}

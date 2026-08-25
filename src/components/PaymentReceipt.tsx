@@ -245,11 +245,11 @@ export default function PaymentReceipt() {
 
           <button
             onClick={() => {
-                navigate("/orders");
+                navigate("/appreciation");
             }}
             className="w-full border border-gray-300 hover:bg-gray-100 py-4 rounded-2xl font-semibold transition"
           >
-            Proceed to View Order
+            Proceed
           </button>
         </div>
       </div>

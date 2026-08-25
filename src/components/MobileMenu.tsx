@@ -7,6 +7,7 @@ import browseFood from '../images/—Pngtree—chef hat vector icon design_89914
 import cart from '../images/—Pngtree—shopping cart convenient icon_4637407.png';
 import Login from '../images/person.png';
 import logOut from '../images/logout.png';
+import orders from '../images/orders.png';
 
 const MobileMenu = () => {
     const [foodTray, setFoodTray] = useState(false);
@@ -39,6 +40,11 @@ const toCart = () => {
   navigate('cart');
   closeMenu();
 };
+
+const toOrdersPage = () => {
+    navigate('/orders');
+    closeMenu();
+}
 
 const handleLogin = async () => {
     navigate('/auth'); // Redirect to login page after logout
@@ -74,10 +80,16 @@ const handleLogin = async () => {
                 </div>
             </div>
             <div className='flex flex-row items-center gap-[20px] mt-[15px] pb-[15px] border-b-[1px] border-[rgba(0,0,0,0.3)]'
-                onClick={() => {toCart()}}
+                onClick={() => user? toCart() : handleLogin()}
             >
                 <img src={cart} alt="cart-icon" className='h-[50px] w-[50px]'/>
                 <p className='text-[18px] font-bold'>Cart</p>
+            </div>
+            <div className='flex flex-row items-center gap-[20px] mt-[15px] pb-[15px] border-b-[1px] border-[rgba(0,0,0,0.3)]'
+                onClick={() => user? toOrdersPage() : handleLogin()}
+            >
+                <img src={orders} alt="cart-icon" className='h-[50px] w-[50px]'/>
+                <p className='text-[18px] font-bold'>View Orders</p>
             </div>
             <div className='flex flex-row items-center gap-[20px] mt-[15px] pb-[15px] border-b-[1px] border-[rgba(0,0,0,0.3)]'
                 onClick={() => user? handleLogout(): handleLogin()}

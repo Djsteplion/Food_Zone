@@ -179,7 +179,7 @@ export default function Payment() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-100 px-4 md:px-8 py-10">
+    <div className="min-h-screen bg-neutral-100 px-4 md:px-8 py-6">
       <div className="max-w-2xl mx-auto flex justify-between items-center mb-5">
         <button
           onClick={() => navigate(-1)}
@@ -380,7 +380,7 @@ export default function Payment() {
 
           <div className="mt-8">
             <p className="font-mono text-lg tracking-widest">
-              5531886652142950
+              5531 8866 5214 2950
             </p>
           </div>
 
@@ -434,7 +434,7 @@ export default function Payment() {
 
           <div className="mt-8">
             <p className="font-mono text-[17px] tracking-widest">
-              5438898014560229
+              5438 8980 1456 0229
             </p>
           </div>
 
