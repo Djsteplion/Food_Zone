@@ -22,10 +22,13 @@ const Body = () => {
 
   return (
     <HomeLoader>
-      <div className="w-full flex flex-row items-center justify-between pl-12.5">
+      <main
+        id="main-content"
+        className="w-full flex flex-row items-center justify-between pl-12.5"
+      >
         <Fz />
         <Menu />
-      </div>
+      </main>
 
       {showCookie && <CookieConsent />}
     </HomeLoader>
