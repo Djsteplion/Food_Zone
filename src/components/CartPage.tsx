@@ -59,7 +59,7 @@ const CartPage = () => {
             </h1>
           </header>
 
-          <div className="flex flex-col justify-center items-center select-none">
+          <div className="flex w-full flex-col items-stretch select-none">
             {cart.length > 0 ? (
               cart.map((item) => (
                 <article

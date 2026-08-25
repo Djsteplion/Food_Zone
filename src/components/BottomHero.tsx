@@ -9,8 +9,8 @@ const BottomHero = () => {
                 {/* Header */}
                 <div className="mb-2 flex flex-row justify-between items-center">
                     <div className='flex flex-col items-center gap-[15px] mt-[10px]'>
-                        <img src={xum} alt=""  className='h-[12px] w-[37px]' />
-                        <img src={food} alt=""  className='h-[30px] w-[50px]' />
+                        <img src={xum} alt="xum image"  className='h-[12px] w-[37px]' />
+                        <img src={food} alt="food zone image"  className='h-[30px] w-[50px]' />
                     </div>
                     <div className=' flex flex-col gap-[1px] ml-auto'>
                         <h1 className="text-[25px] font-bold text-gray-900 mb-2">FOOD ZONE</h1>

@@ -1,7 +1,6 @@
-import { useProductStore } from "../utils/store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-//import Logo from '../images/logo.png';
+import { useProductStore } from "../utils/store";
 
 const Appreciation = () => {
   const clearCart = useProductStore((state) => state.clearCart);
@@ -12,67 +11,72 @@ const Appreciation = () => {
   }, [clearCart]);
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-8 overflow-hidden">
+    <main className="flex min-h-screen items-center justify-center overflow-hidden bg-white px-4 py-8">
       <div className="w-full max-w-[480px] text-center">
-
         {/* Delivery Animation */}
-        <div className="relative h-[230px] overflow-hidden rounded-[24px] bg-[#f3f4f6] mb-8">
-
+        <section
+          aria-labelledby="delivery-status"
+          className="relative mb-8 h-[230px] overflow-hidden rounded-[24px] bg-[#f3f4f6]"
+        >
           {/* Sky / background */}
-          <div className="absolute inset-0">
-
+          <div className="absolute inset-0" aria-hidden="true">
             {/* Clouds */}
-            <div className="cloud cloud-one"></div>
-            <div className="cloud cloud-two"></div>
+            <div className="cloud cloud-one" />
+            <div className="cloud cloud-two" />
 
             {/* Road */}
             <div className="absolute bottom-0 left-0 right-0 h-[65px] bg-black">
-              <div className="road-line"></div>
+              <div className="road-line" />
             </div>
 
             {/* Truck */}
             <div className="delivery-truck">
-
               {/* Truck body */}
               <div className="truck-body">
-                <div className="truck-logo">
-                   XUM
-                   {/* <img src={Logo} alt="Logo" className='w-16 h-5 lg:w-25.25 lg:h-9.75' /> */}
-                </div>
-
-                <div className="truck-window"></div>
-
-                <div className="truck-door-line"></div>
+                <div className="truck-logo">XUM</div>
+                <div className="truck-window" />
+                <div className="truck-door-line" />
               </div>
 
               {/* Truck front */}
               <div className="truck-front">
-                <div className="truck-windshield"></div>
-                <div className="truck-light"></div>
+                <div className="truck-windshield" />
+                <div className="truck-light" />
               </div>
 
               {/* Wheels */}
               <div className="wheel wheel-left">
-                <div className="wheel-inner"></div>
+                <div className="wheel-inner" />
               </div>
 
               <div className="wheel wheel-right">
-                <div className="wheel-inner"></div>
+                <div className="wheel-inner" />
               </div>
             </div>
           </div>
 
-          {/* Small status badge */}
-          <div className="absolute top-5 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-sm flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#FF8233] animate-pulse"></span>
+          {/* Status badge */}
+          <div
+            id="delivery-status"
+            role="status"
+            aria-live="polite"
+            className="absolute left-1/2 top-5 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm"
+          >
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 animate-pulse rounded-full bg-[#FF8233]"
+            />
             <span className="text-xs font-semibold text-black">
               Out for delivery
             </span>
           </div>
-        </div>
+        </section>
 
         {/* Success icon */}
-        <div className="mx-auto mb-5 w-16 h-16 rounded-full bg-[#FF8233] flex items-center justify-center shadow-[0_8px_25px_rgba(255,130,51,0.25)]">
+        <div
+          aria-hidden="true"
+          className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#FF8233] shadow-[0_8px_25px_rgba(255,130,51,0.25)]"
+        >
           <svg
             width="30"
             height="30"
@@ -88,35 +92,35 @@ const Appreciation = () => {
         </div>
 
         {/* Text */}
-        <h1 className="text-[28px] md:text-[32px] font-bold text-black tracking-tight">
+        <h1 className="text-[28px] font-bold tracking-tight text-black md:text-[32px]">
           Your order is on its way!
         </h1>
 
-        <p className="mt-3 text-[15px] leading-6 text-gray-500 max-w-[380px] mx-auto">
+        <p className="mx-auto mt-3 max-w-[380px] text-[15px] leading-6 text-gray-500">
           Your food has been packaged and handed over to our delivery team.
           Sit back and relax — it won't be long now.
         </p>
 
         {/* Buttons */}
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <button
+            type="button"
             onClick={() => navigate("/orders")}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#FF8233] text-white font-semibold text-sm hover:bg-[#e97027] active:scale-[0.98] transition-all duration-200 shadow-[0_6px_20px_rgba(255,130,51,0.2)]"
+            className="w-full rounded-xl bg-[#FF8233] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(255,130,51,0.2)] transition-all duration-200 hover:bg-[#e97027] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8233] focus-visible:ring-offset-2 sm:w-auto"
           >
             View My Order
           </button>
 
           <button
+            type="button"
             onClick={() => navigate("/")}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-black text-white font-semibold text-sm hover:bg-gray-800 active:scale-[0.98] transition-all duration-200"
+            className="w-full rounded-xl bg-black px-7 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-gray-800 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8233] focus-visible:ring-offset-2 sm:w-auto"
           >
             Back to Home
           </button>
-
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

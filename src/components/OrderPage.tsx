@@ -3,15 +3,13 @@ import { useProductStore } from "../utils/store";
 
 export default function Orders() {
   const navigate = useNavigate();
-
   const orders = useProductStore((state) => state.orders);
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] px-4 py-8 md:px-8">
+    <main className="min-h-screen bg-[#f3f4f6] px-4 py-8 md:px-8">
       <div className="mx-auto max-w-5xl">
-
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <header className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-black md:text-3xl">
               My Orders
@@ -22,21 +20,31 @@ export default function Orders() {
           </div>
 
           <button
+            type="button"
             onClick={() => navigate("/")}
-            className="rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF8233]"
+            className="rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#FF8233] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8233] focus-visible:ring-offset-2"
           >
             Home
           </button>
-        </div>
+        </header>
 
         {/* Empty State */}
         {orders.length === 0 ? (
-          <div className="rounded-3xl bg-white px-6 py-16 text-center shadow-sm">
-            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6] text-2xl">
+          <section
+            aria-labelledby="empty-orders-heading"
+            className="rounded-3xl bg-white px-6 py-16 text-center shadow-sm"
+          >
+            <div
+              aria-hidden="true"
+              className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6] text-2xl"
+            >
               🛍️
             </div>
 
-            <h2 className="text-xl font-bold text-black">
+            <h2
+              id="empty-orders-heading"
+              className="text-xl font-bold text-black"
+            >
               No orders yet
             </h2>
 
@@ -46,29 +54,26 @@ export default function Orders() {
             </p>
 
             <button
+              type="button"
               onClick={() => navigate("/")}
-              className="mt-6 rounded-full bg-[#FF8233] px-6 py-3 text-sm font-bold text-white transition hover:bg-black"
+              className="mt-6 rounded-full bg-[#FF8233] px-6 py-3 text-sm font-bold text-white transition hover:bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8233] focus-visible:ring-offset-2"
             >
               Start Shopping
             </button>
-          </div>
+          </section>
         ) : (
-          <div className="space-y-5">
-
+          <section aria-label="Your orders" className="space-y-5">
             {orders.map((order) => (
-              <div
+              <article
                 key={order.id}
                 className="overflow-hidden rounded-3xl bg-white shadow-sm"
               >
-
                 {/* Order Header */}
-                <div className="flex flex-col gap-4 border-b border-gray-100 p-5 md:flex-row md:items-center md:justify-between md:px-7">
-
+                <header className="flex flex-col gap-4 border-b border-gray-100 p-5 md:flex-row md:items-center md:justify-between md:px-7">
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
                       Order ID
                     </p>
-
                     <p className="mt-1 font-mono text-sm font-semibold text-black">
                       #{order.id.slice(0, 8).toUpperCase()}
                     </p>
@@ -78,25 +83,34 @@ export default function Orders() {
                     <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
                       Date
                     </p>
-
-                    <p className="mt-1 text-sm font-medium text-gray-700">
+                    <time
+                      dateTime={new Date(order.createdAt).toISOString()}
+                      className="mt-1 block text-sm font-medium text-gray-700"
+                    >
                       {new Date(order.createdAt).toLocaleDateString()}
-                    </p>
+                    </time>
                   </div>
 
                   {/* Status */}
-                  <div className="flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#FF8233]" />
-
-                    <span className="rounded-full bg-orange-50 px-3 py-1.5 text-xs font-bold text-[#FF8233]">
+                  <div
+                    className="flex items-center gap-2"
+                    aria-label={`Order status: ${order.status}`}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="h-2.5 w-2.5 rounded-full bg-[#FF8233]"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="rounded-full bg-orange-50 px-3 py-1.5 text-xs font-bold text-[#FF8233]"
+                    >
                       {order.status}
                     </span>
                   </div>
-                </div>
+                </header>
 
                 {/* Products */}
                 <div className="p-5 md:px-7">
-
                   <div className="space-y-4">
                     {order.items.slice(0, 3).map((item) => (
                       <div
@@ -106,6 +120,8 @@ export default function Orders() {
                         <img
                           src={item.imageSrc}
                           alt={item.title}
+                          loading="lazy"
+                          decoding="async"
                           className="h-16 w-16 rounded-2xl bg-[#f3f4f6] object-cover"
                         />
 
@@ -113,7 +129,6 @@ export default function Orders() {
                           <h3 className="truncate text-sm font-bold text-black">
                             {item.title}
                           </h3>
-
                           <p className="mt-1 text-xs text-gray-500">
                             Qty: {item.count}
                           </p>
@@ -132,36 +147,30 @@ export default function Orders() {
                       {order.items.length - 3 > 1 ? "s" : ""}
                     </p>
                   )}
-
                 </div>
 
                 {/* Footer */}
-                <div className="flex flex-col gap-4 border-t border-gray-100 bg-gray-50/70 p-5 md:flex-row md:items-center md:justify-between md:px-7">
-
+                <footer className="flex flex-col gap-4 border-t border-gray-100 bg-gray-50/70 p-5 md:flex-row md:items-center md:justify-between md:px-7">
                   <div>
-                    <p className="text-xs text-gray-500">
-                      Total amount
-                    </p>
-
+                    <p className="text-xs text-gray-500">Total amount</p>
                     <p className="mt-1 text-xl font-bold text-black">
                       ${order.total.toFixed(2)}
                     </p>
                   </div>
 
                   <button
+                    type="button"
                     onClick={() => navigate(`/orders/${order.id}`)}
-                    className="rounded-full bg-black px-6 py-3 text-sm font-bold text-white transition hover:bg-[#FF8233]"
+                    className="rounded-full bg-black px-6 py-3 text-sm font-bold text-white transition hover:bg-[#FF8233] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8233] focus-visible:ring-offset-2"
                   >
                     View Order →
                   </button>
-
-                </div>
-              </div>
+                </footer>
+              </article>
             ))}
-
-          </div>
+          </section>
         )}
       </div>
-    </div>
+    </main>
   );
 }
