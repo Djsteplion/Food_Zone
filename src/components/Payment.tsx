@@ -129,6 +129,9 @@ export default function Payment() {
           paymentData: response,
           amount: grandTotal,
           total: grandTotal,
+          customer_name: formData.name.trim(),
+          customer_email: formData.email.trim(),
+          customer_phone: formData.phone.trim(),
         },
       });
     } catch (error) {

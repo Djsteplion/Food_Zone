@@ -15,6 +15,9 @@ export default function PaymentReceipt() {
     verifiedStatus,
     amount,
     total,
+    customer_name,
+    customer_email,
+    //customer_phone
   } = state || {};
 
  // const loggeduser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -169,16 +172,16 @@ export default function PaymentReceipt() {
           {/* BODY */}
           <div className="p-6 md:p-8 space-y-5">
             <div className="flex justify-between border-b pb-3">
-              <span className="text-gray-500">Customer/Merchant Name</span>
+              <span className="text-gray-500">Name</span>
               <span className="font-medium text-right">
-                {paymentData.customer.name}
+                {customer_name}
               </span>
             </div>
 
             <div className="flex justify-between border-b pb-3">
-              <span className="text-gray-500">Merchant Email</span>
+              <span className="text-gray-500">Email</span>
               <span className="font-medium text-right break-all">
-                {paymentData.customer.email}
+                {customer_email}
               </span>
             </div>
 
