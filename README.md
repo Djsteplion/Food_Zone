@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# Food Zone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full food-ordering flow — browse menu, cart, delivery details, card payment, receipt, and order history — built as a React + TypeScript SPA with a real payment gateway integration (Flutterwave).
 
-Currently, two official plugins are available:
+> Live demo:   https://food-zone-xum.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## What this is
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+A restaurant ordering app covering the full commerce loop, not just a menu list:
 
-## Expanding the ESLint configuration
+- **Menu & cart** — add/remove items, quantity controls, persisted cart (survives a refresh).
+- **Auth** — sign in/sign up flow backed by a real HTTP API (cookie-based sessions via `credentials: "include"`), with protected routes for order history.
+- **Delivery details** capture before checkout.
+- **Real payment integration** — Flutterwave's hosted checkout modal (`flutterwave-react-v3`), not a fake "Pay Now" button that just navigates you to a success page.
+- **Order history** — past orders with drill-into-detail, receipts exportable as PDF/image (`jspdf`, `html-to-image`).
+- **Mobile-specific UI** — a separate mobile food tray/menu component set, not just responsive CSS on the desktop layout.
+- **Cookie consent banner** — only the necessary ones.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  
+## Tech stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Choice |
+|---|---|
+| Framework | React 19 + TypeScript, Vite |
+| Routing | React Router v7 |
+| State | Zustand (with `devtools` + `persist` middleware) |
+| Styling | Tailwind CSS v4 |
+| Payments | Flutterwave (card checkout, test sandbox mode) |
+| Backend | Custom REST API (auth) — see below |
+| PDF / image export | jsPDF, html-to-image |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Architecture notes
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**State management is genuinely structured, not just `useState` everywhere.** `utils/store.ts` splits concerns into two Zustand stores: `useAuthStore` (session state, hydrated on load via `/auth/me`) and `useProductStore` (cart, orders, delivery fee, derived totals like `getGrandTotal()`). The product store uses `persist` middleware so the cart survives a page refresh, and `devtools` middleware so state transitions are inspectable in Redux DevTools during development.
+
+**Payment flow is defensive, not naive.** `Payment.tsx` explicitly checks `response.status !== "successful"` before creating an order record — it does *not* assume the Flutterwave callback firing means the charge succeeded. It also regenerates the `tx_ref` (a UUID) after both success and modal-close, so a user can't retry with a stale transaction reference.
+
+
+
+## Getting started
+
+```bash
+git clone https://github.com/Djsteplion/Food_Zone.git
+cd Food_Zone
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Create a `.env` file:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```
+VITE_API_URL=<your auth backend URL>
+VITE_FLUTTERWAVE_PUBLIC_KEY=<your Flutterwave test/live public key>
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
+```
+
+## Project structure
+
+```
+src/
+  components/
+    Header.tsx / MobileMenu.tsx / Menu.tsx     # Browse
+    CartPage.tsx / DeliveryPage.tsx            # Checkout flow
+    Payment.tsx / PaymentReceipt.tsx           # Flutterwave + receipt
+    OrderPage.tsx / OrderDetails.tsx           # Order history
+    Authentication.tsx                          # Sign in / sign up
+    CookieConsent.tsx
+  utils/
+    store.ts             # Zustand: auth store + product/cart/order store
 ```
