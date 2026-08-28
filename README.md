@@ -3,6 +3,12 @@
 A full food-ordering flow — browse menu, cart, delivery details, card payment, receipt, and order history — built as a React + TypeScript SPA with a real payment gateway integration (Flutterwave).
 
 > Live demo:   https://food-zone-xum.netlify.app/
+> Screenshots:
+<img src="assets\Screenshot 2026-08-28 230120.png" alt="image showing the food items for sale" width="500">
+<img src="assets\Screenshot 2026-08-28 231049.png" alt="image showing the test-cards section of the payment page" width="500">
+<img src="assets\Screenshot 2026-08-28 231253.png" alt="image showing the auto-generated custom receipt, after a successful flutterwave payment" width="500">   
+<img src="assets\Screenshot 2026-08-28 231516.png" alt="image showing the customer's order details & status" width="500">
+<img src="assets\Screenshot 2026-08-28 231413.png" alt="image showing an animated page, indicating that the customer's order is on it's way" width="500">
 
 
 ## What this is
